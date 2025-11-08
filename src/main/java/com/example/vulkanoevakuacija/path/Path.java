@@ -4,6 +4,7 @@ import com.example.vulkanoevakuacija.model.Position;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public final class Path {
     private final List<Position> steps;
@@ -12,15 +13,14 @@ public final class Path {
     }
     public static Path of(List<Position> steps){
         Objects.requireNonNull(steps, "steps");
-        if (steps.isEmpty()) throw new IllegalArgumentException("Path negali buti tuscias");
+        if (steps.isEmpty()) throw new IllegalArgumentException("Path can't be empty");
         return new Path(steps);
     }
     public List<Position> getSteps(){ return steps; }
-    public Position nextAfter(Position current){
-        for (int i = 0; i < steps.size() - 1; i++){
-            if (steps.get(i).equals(current)) return steps.get( i + 1 );
-        }
-        return null;
+    public Optional<Position> nextAfter(Position current) {
+        int i = steps.indexOf(current);
+        if (i < 0 || i + 1 >= steps.size()) return Optional.empty();
+        return Optional.of(steps.get(i + 1));
     }
     public int length(){ return steps.size(); }
     public Position start(){ return steps.get(0); }

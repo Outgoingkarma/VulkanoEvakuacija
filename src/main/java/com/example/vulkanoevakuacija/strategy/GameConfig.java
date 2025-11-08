@@ -1,4 +1,4 @@
-package com.example.vulkanoevakuacija;
+package com.example.vulkanoevakuacija.strategy;
 
 public final class GameConfig {
     private GameConfig() {}

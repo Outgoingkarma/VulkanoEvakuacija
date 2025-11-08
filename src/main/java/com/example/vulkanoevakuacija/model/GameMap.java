@@ -1,6 +1,6 @@
 package com.example.vulkanoevakuacija.model;
 
-import com.example.vulkanoevakuacija.GameConfig;
+import com.example.vulkanoevakuacija.strategy.GameConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public final class GameMap {
 
     public GameMap(String[] layout){
         if(layout == null || layout.length == 0){
-            throw new IllegalArgumentException("Layout negali buti tuscias");
+            throw new IllegalArgumentException("Layout can't be null or empty");
         }
         this.rows = layout.length;
         this.cols = layout[0].length();
@@ -22,8 +22,8 @@ public final class GameMap {
 
         for(int r = 0; r < rows; r++){
             if(layout[r].length() != cols){
-                throw new IllegalArgumentException("Visos eilutes privalo buti vieno ilgio. " +
-                        "Eilute " + (r+1) + " turi ilgi " + layout[r].length() + ", o tiketasi " + cols + "."
+                throw new IllegalArgumentException("All rows must have the same length. " +
+                        "Row " + (r+1) + " have length " + layout[r].length() + ", expected " + cols + "."
                 );
             }
             for(int c = 0; c < cols; c++){
@@ -42,11 +42,11 @@ public final class GameMap {
         return p.getRow() >= 0 && p.getRow() < rows && p.getCol() >= 0 && p.getCol() < cols;
     }
     public Tile getTile(Position p){
-        if(!inBounds(p)) throw new IllegalArgumentException("Uz ribu: " +p);
+        if(!inBounds(p)) throw new IllegalArgumentException("Out of bounds: " +p);
         return tiles[p.getRow()][p.getCol()];
     }
     public void setTile(Position p, TileType type){
-        if(!inBounds(p)) throw new IllegalArgumentException("Uz ribu: " +p);
+        if(!inBounds(p)) throw new IllegalArgumentException("Out of bound: " +p);
         tiles[p.getRow()][p.getCol()] = new Tile(type);
         if (type == TileType.SAFE && !safeZones.contains(p)){
             safeZones.add(p);
@@ -74,7 +74,7 @@ public final class GameMap {
             case 'L' -> TileType.LAVA;
             case '#' -> TileType.WALL;
             case 'B' -> TileType.BARRICADE;
-            default -> throw new IllegalArgumentException("Nezinomas simbolis: '" + ch + "'");
+            default -> throw new IllegalArgumentException("Unknown symbol: '" + ch + "'");
         };
     }
     public char[][] toCharArray(){

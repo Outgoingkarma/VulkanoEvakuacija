@@ -1,6 +1,6 @@
 package com.example.vulkanoevakuacija.model;
 
-import com.example.vulkanoevakuacija.GameConfig;
+import com.example.vulkanoevakuacija.strategy.GameConfig;
 
 public class GameStarter {
     public static void main(String[] args){

@@ -37,7 +37,7 @@ public final class CommandParser {
                     return Optional.of(new SkipCommand());
                 }
                 default -> {
-                    System.out.println("Nepriskyrimo komanda: " + cmd);
+                    System.out.println("Ne egzistuojanti komanda: " + cmd);
                     return Optional.empty();
                 }
             }

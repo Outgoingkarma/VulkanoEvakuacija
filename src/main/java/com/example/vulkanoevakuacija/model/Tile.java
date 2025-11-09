@@ -12,7 +12,7 @@ public final class Tile {
     private int initialLavaDelay(TileType type){
 
         return switch (type){
-            case BARRICADE -> (2 * turn);
+            case BARRICADE -> (3 * turn);
             default -> 0;
         };
     }

@@ -1,5 +1,6 @@
 package com.example.vulkanoevakuacija.Game;
 
+import com.example.vulkanoevakuacija.actions.Command;
 import com.example.vulkanoevakuacija.actions.CommandParser;
 import com.example.vulkanoevakuacija.agent.Resident;
 import com.example.vulkanoevakuacija.agent.Updatable;
@@ -37,7 +38,7 @@ public final class GameEngine {
 
         while (!isGameOver()) {
             printState();
-            handlePlannedActions();
+            handlePlayerActions();
             moveAgents();
             lavaSpread.applyOneStepSpread(ctx.getGameMap());
             resolveDeathsOnLava();
@@ -46,19 +47,43 @@ public final class GameEngine {
         printFinalResult();
 
     }
-    private void handlePlannedActions() {
+    private void handlePlayerActions() {
         if (ctx.getActionsLeft() <= 0) {
             System.out.println("Veiksmai beigesi!!!");
             System.out.println("Nebegali daugiau statyti/atverti keliu ar barikadu!");
+            System.out.println("Zaidimas tesiasi");
             return;
         }
-        System.out.println("Ivesk komanda (Eiliskumas ->  <komanda> <eilute> <stulpelis>)");
-        System.out.println("Galimos komandos: ");
-        System.out.println("b/barikada/barricade ");
-        System.out.println("o/atverti/open ");
-        System.out.println("s/praleisti/skip ");
-        String line = scanner.nextLine();
-        CommandParser.parse(line).ifPresent(cmd -> cmd.execute(ctx));
+
+
+        while (true) {
+            System.out.println("Ivesk komanda (Eiliskumas ->  <komanda> <eilute> <stulpelis>)");
+            System.out.println("Galimos komandos: ");
+            System.out.println("b/barikada/barricade ");
+            System.out.println("o/atverti/open ");
+            System.out.println("s/praleisti/skip ");
+            String line = scanner.nextLine();
+
+            var parsed = CommandParser.parse(line);
+            if (parsed.isEmpty()) {
+                System.out.println("Neteisinga komanda!");
+                continue;
+            }
+
+            Command cmd = parsed.get();
+            boolean success = cmd.execute(ctx);
+
+            if (!success) {
+                continue;
+            }
+        break;
+        }
+
+
+
+
+
+
     }
     private void moveAgents() {
         for (Updatable a : ctx.getAgents()){
@@ -120,6 +145,8 @@ public final class GameEngine {
     for (int row = 0; row < gameMap.rows(); row++){
         System.out.printf("%3d | %s%n", row, new String(view[row]));
     }
+
+
     System.out.println("Like veiksmai: " + ctx.getActionsLeft() + " / " + GameConfig.PLAYER_TOTAL_ACTIONS_COUNT);
     System.out.println("Zingsnis: " + ctx.getTurn());
     printResidentsSummary();

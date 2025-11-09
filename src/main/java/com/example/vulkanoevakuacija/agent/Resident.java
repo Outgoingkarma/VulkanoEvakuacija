@@ -42,8 +42,7 @@ public class Resident extends Agent{
 
         var nextTile = gameMap.getTile(next);
         //---------------------------------------------------------------
-        //Pasvarstyti ar verta palikti nes kaip ir true gali buti tik viename atvyje o visi kiti false
-        if (nextTile.isWalkable() || nextTile.isDangerous()) return false;
+        if (!nextTile.isWalkable() || nextTile.isDangerous()) return false;
         setPosition(next);
         //---------------------------------------------------------------
         if (gameMap.getTile(next).getType() == TileType.SAFE) {

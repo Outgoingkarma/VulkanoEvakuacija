@@ -23,22 +23,22 @@ public final class GameEngine {
 
     public void run() {
         System.out.println("Welcome to Vulkano Evakuacija!");
-//        System.out.println("You have " + ctx.getActionsLeft() + " actions left!");
-//        while (ctx.getActionsLeft() > 0) {
-//            System.out.println("What would you like to do?");
-//            System.out.println("1. Move");
-//            System.out.println("2. Build barricade");
-//            System.out.println("3. Build road");
-//            System.out.println("4. Build house");
-//            System.out.println("5. Skip turn");
-//            System.out.println("6. Exit");
-//            int choice = scanner.nextInt();
-//        }
+
 
 
         while (!isGameOver()) {
             printState();
-            handlePlayerActions();
+            if (ctx.getActionsLeft() > 0){ handlePlayerActions();
+            } else {
+                System.out.println("Veiksmai beigesi!!!");
+                System.out.println("Nebegali daugiau statyti/atverti keliu ar barikadu!");
+                System.out.println("Zaidimas tesiasi");
+                try {
+                    Thread.sleep(1000);
+                }catch (InterruptedException e){
+                    Thread.currentThread().interrupt();
+                }
+            }
             moveAgents();
             lavaSpread.applyOneStepSpread(ctx.getGameMap());
             resolveDeathsOnLava();
@@ -48,12 +48,12 @@ public final class GameEngine {
 
     }
     private void handlePlayerActions() {
-        if (ctx.getActionsLeft() <= 0) {
-            System.out.println("Veiksmai beigesi!!!");
-            System.out.println("Nebegali daugiau statyti/atverti keliu ar barikadu!");
-            System.out.println("Zaidimas tesiasi");
-            return;
-        }
+//        if (ctx.getActionsLeft() <= 0) {
+//            System.out.println("Veiksmai beigesi!!!");
+//            System.out.println("Nebegali daugiau statyti/atverti keliu ar barikadu!");
+//            System.out.println("Zaidimas tesiasi");
+//            return;
+//        }
 
 
         while (true) {
@@ -131,10 +131,8 @@ public final class GameEngine {
             Position pos = resident.getPosition();
             if (!gameMap.inBounds(pos)) continue;
             if (!resident.isAlive()) {
-                view[pos.getRow()][pos.getCol()] = 'X';
-            } else if (resident.isEvacuated()) {
-                view[pos.getRow()][pos.getCol()] = 'E';
-            } else {
+                view[pos.getRow()][pos.getCol()] = GameConfig.RESIDENT_DEAD;
+            }  else {
                 view[pos.getRow()][pos.getCol()] = 'R';
             }
         }

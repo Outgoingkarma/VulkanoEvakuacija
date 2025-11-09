@@ -3,7 +3,7 @@ package com.example.vulkanoevakuacija.Game;
 public final class GameConfig {
     private GameConfig() {}
 
-    public static final int PLAYER_TOTAL_ACTIONS_COUNT = 6;
+    public static final int PLAYER_TOTAL_ACTIONS_COUNT = 1;
     public static final int LAVA_SPREAD_RANGE = 1;
 
     public static final char ROAD = '.';

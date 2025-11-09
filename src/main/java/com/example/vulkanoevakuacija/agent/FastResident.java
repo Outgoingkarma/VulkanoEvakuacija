@@ -1,6 +1,6 @@
 package com.example.vulkanoevakuacija.agent;
 
-import com.example.vulkanoevakuacija.model.Position;
+import com.example.vulkanoevakuacija.map.Position;
 import com.example.vulkanoevakuacija.strategy.FixedSpeedStrategy;
 
 public final class FastResident extends Resident {

@@ -1,6 +1,6 @@
 package com.example.vulkanoevakuacija.actions;
 
-import com.example.vulkanoevakuacija.model.Position;
+import com.example.vulkanoevakuacija.map.Position;
 
 import java.util.Locale;
 import java.util.Optional;

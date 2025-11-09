@@ -3,9 +3,7 @@ package com.example.vulkanoevakuacija.Game;
 import com.example.vulkanoevakuacija.agent.FastResident;
 import com.example.vulkanoevakuacija.agent.SlowResident;
 import com.example.vulkanoevakuacija.agent.Updatable;
-import com.example.vulkanoevakuacija.model.GameMap;
-import com.example.vulkanoevakuacija.model.Position;
-import com.example.vulkanoevakuacija.model.TileType;
+import com.example.vulkanoevakuacija.map.*;
 import com.example.vulkanoevakuacija.path.BfsPathFinder;
 import com.example.vulkanoevakuacija.path.PathFinder;
 import com.example.vulkanoevakuacija.strategy.GameContext;
@@ -16,7 +14,15 @@ import java.util.List;
 
 public class GameStarter {
     public static void main(String[] args) {
-        GameMap gameMap = new GameMap(GameConfig.DEFAULT_MAP);
+
+
+
+        MapGenerator generator = new SimpleRandomMapGenerator( GameConfig.rows, GameConfig.cols,
+                GameConfig.houses, GameConfig.safeZones, GameConfig.randomBarricades, GameConfig.randomWalls,
+                GameConfig.lavaSeeds);
+
+        String[] layout = generator.generateMap();
+        GameMap gameMap = new GameMap(layout);
         PathFinder pathFinder = new BfsPathFinder();
         List<Updatable> agents = createResidentsFromHouses(gameMap);
         GameContext ctx = new GameContext(gameMap, pathFinder, agents, GameConfig.PLAYER_TOTAL_ACTIONS_COUNT);

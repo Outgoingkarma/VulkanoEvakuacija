@@ -1,7 +1,7 @@
 package com.example.vulkanoevakuacija.path;
 
-import com.example.vulkanoevakuacija.model.GameMap;
-import com.example.vulkanoevakuacija.model.Position;
+import com.example.vulkanoevakuacija.map.GameMap;
+import com.example.vulkanoevakuacija.map.Position;
 
 import java.util.*;
 

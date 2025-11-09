@@ -1,4 +1,4 @@
-package com.example.vulkanoevakuacija.model;
+package com.example.vulkanoevakuacija.map;
 
 import com.example.vulkanoevakuacija.Game.GameConfig;
 

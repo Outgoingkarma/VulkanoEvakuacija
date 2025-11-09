@@ -1,8 +1,8 @@
 package com.example.vulkanoevakuacija.strategy;
 
-import com.example.vulkanoevakuacija.model.GameMap;
-import com.example.vulkanoevakuacija.model.Position;
-import com.example.vulkanoevakuacija.model.TileType;
+import com.example.vulkanoevakuacija.map.GameMap;
+import com.example.vulkanoevakuacija.map.Position;
+import com.example.vulkanoevakuacija.map.TileType;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

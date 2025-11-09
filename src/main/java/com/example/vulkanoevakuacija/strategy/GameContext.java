@@ -1,7 +1,7 @@
 package com.example.vulkanoevakuacija.strategy;
 
 import com.example.vulkanoevakuacija.agent.Updatable;
-import com.example.vulkanoevakuacija.model.GameMap;
+import com.example.vulkanoevakuacija.map.GameMap;
 import com.example.vulkanoevakuacija.path.PathFinder;
 
 import java.util.ArrayList;

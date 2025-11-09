@@ -1,4 +1,4 @@
-package com.example.vulkanoevakuacija.model;
+package com.example.vulkanoevakuacija.map;
 
 public final class Tile {
     private TileType type;

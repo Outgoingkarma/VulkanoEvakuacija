@@ -4,9 +4,9 @@ import com.example.vulkanoevakuacija.actions.Command;
 import com.example.vulkanoevakuacija.actions.CommandParser;
 import com.example.vulkanoevakuacija.agent.Resident;
 import com.example.vulkanoevakuacija.agent.Updatable;
-import com.example.vulkanoevakuacija.model.GameMap;
-import com.example.vulkanoevakuacija.model.Position;
-import com.example.vulkanoevakuacija.model.TileType;
+import com.example.vulkanoevakuacija.map.GameMap;
+import com.example.vulkanoevakuacija.map.Position;
+import com.example.vulkanoevakuacija.map.TileType;
 import com.example.vulkanoevakuacija.strategy.GameContext;
 import com.example.vulkanoevakuacija.strategy.LavaSpread;
 
@@ -34,7 +34,7 @@ public final class GameEngine {
                 System.out.println("Nebegali daugiau statyti/atverti keliu ar barikadu!");
                 System.out.println("Zaidimas tesiasi");
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(GameConfig.gameSpeed);
                 }catch (InterruptedException e){
                     Thread.currentThread().interrupt();
                 }
@@ -48,13 +48,6 @@ public final class GameEngine {
 
     }
     private void handlePlayerActions() {
-//        if (ctx.getActionsLeft() <= 0) {
-//            System.out.println("Veiksmai beigesi!!!");
-//            System.out.println("Nebegali daugiau statyti/atverti keliu ar barikadu!");
-//            System.out.println("Zaidimas tesiasi");
-//            return;
-//        }
-
 
         while (true) {
             System.out.println("Ivesk komanda (Eiliskumas ->  <komanda> <eilute> <stulpelis>)");
@@ -160,8 +153,8 @@ public final class GameEngine {
                 }
                 else aliveInDanger++;
             }
-            System.out.println("Gyventojai gyvi: " + aliveInDanger + ", mire: " + dead + ", issigelbejo: " + evacuated);
         }
+        System.out.println("Gyventojai gyvi: " + aliveInDanger + ", mire: " + dead + ", issigelbejo: " + evacuated);
     }
 
     private void printFinalResult() {

@@ -3,8 +3,7 @@ package com.example.vulkanoevakuacija.Game;
 public final class GameConfig {
     private GameConfig() {}
 
-    public static final int PLAYER_TOTAL_ACTIONS_COUNT = 1;
-    public static final int LAVA_SPREAD_RANGE = 1;
+    public static final int PLAYER_TOTAL_ACTIONS_COUNT = 0;
 
     public static final char ROAD = '.';
     public static final char WALL = '#';
@@ -16,6 +15,14 @@ public final class GameConfig {
     public static final char RESIDENT_FAST = '⚡';
     public static final char RESIDENT_EVACUATED = '✔';
     public static final char RESIDENT_DEAD = '☠';
+
+
+    public static final int rows = 100, cols = 120,
+            houses = 20, safeZones = 5, randomBarricades = 50, randomWalls = 1000,
+            lavaSeeds = 2;
+
+    public static final int gameSpeed = 50;
+
 
     public static final String[] DEFAULT_MAP = {
             "###########",

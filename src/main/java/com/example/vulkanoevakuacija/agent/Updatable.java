@@ -1,6 +1,8 @@
 package com.example.vulkanoevakuacija.agent;
 
 
+import com.example.vulkanoevakuacija.strategy.GameContext;
+
 public interface Updatable {
-    void update(com.example.vulkanoevakuacija.strategy.GameContext ctx);
+    void update(GameContext ctx);
 }

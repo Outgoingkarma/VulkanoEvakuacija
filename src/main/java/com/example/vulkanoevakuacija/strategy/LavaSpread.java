@@ -34,7 +34,7 @@ public final class LavaSpread {
                 TileType tileType = gameMap.getTile(neighbor).getType();
                 boolean spreads = (tileType == TileType.BARRICADE || tileType == TileType.ROAD || tileType == TileType.HOUSE );
                 if (!spreads) continue;
-                int arrivalTime = currentTime++;
+                int arrivalTime = currentTime+1;
                 if (lavaTime[neighbor.getRow()][neighbor.getCol()] > arrivalTime){
                     lavaTime[neighbor.getRow()][neighbor.getCol()] = arrivalTime;
                     queue.addLast(neighbor);

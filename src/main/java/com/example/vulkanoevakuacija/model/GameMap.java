@@ -1,6 +1,6 @@
 package com.example.vulkanoevakuacija.model;
 
-import com.example.vulkanoevakuacija.strategy.GameConfig;
+import com.example.vulkanoevakuacija.Game.GameConfig;
 
 import java.util.ArrayList;
 import java.util.List;

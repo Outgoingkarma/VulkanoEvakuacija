@@ -1,4 +1,4 @@
-package com.example.vulkanoevakuacija.strategy;
+package com.example.vulkanoevakuacija.Game;
 
 public final class GameConfig {
     private GameConfig() {}
@@ -12,6 +12,10 @@ public final class GameConfig {
     public static final char LAVA = 'L';
     public static final char HOUSE = 'H';
     public static final char BARRICADE = 'B';
+    public static final char RESIDENT_SLOW = '☺';
+    public static final char RESIDENT_FAST = '⚡';
+    public static final char RESIDENT_EVACUATED = '✔';
+    public static final char RESIDENT_DEAD = '☠';
 
     public static final String[] DEFAULT_MAP = {
             "###########",

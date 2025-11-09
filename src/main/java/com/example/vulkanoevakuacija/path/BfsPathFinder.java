@@ -29,8 +29,7 @@ public final class BfsPathFinder implements PathFinder{
             Position current = queue.remove();
             for (Position neighbor : gameMap.neighbors(current)){
                 if (visited[neighbor.getRow()][neighbor.getCol()]) continue;
-                if (gameMap.getTile(neighbor).isWalkable()) continue;
-                if (gameMap.getTile(neighbor).isDangerous()) continue;
+                if (!gameMap.getTile(neighbor).isWalkable() || gameMap.getTile(neighbor).isDangerous()) continue;
                 visited[neighbor.getRow()][neighbor.getCol()] = true;
                 prev.put(neighbor, current);
                 if (targets.contains(neighbor)){

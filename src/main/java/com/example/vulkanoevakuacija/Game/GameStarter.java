@@ -22,6 +22,7 @@ public class GameStarter {
                 GameConfig.lavaSeeds);
 
         String[] layout = generator.generateMap();
+        //String[] layout = GameConfig.DEFAULT_MAP;
         GameMap gameMap = new GameMap(layout);
         PathFinder pathFinder = new BfsPathFinder();
         List<Updatable> agents = createResidentsFromHouses(gameMap);

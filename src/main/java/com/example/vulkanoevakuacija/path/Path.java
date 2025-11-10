@@ -16,15 +16,12 @@ public final class Path {
         if (steps.isEmpty()) throw new IllegalArgumentException("Path can't be empty");
         return new Path(steps);
     }
-    public List<Position> getSteps(){ return steps; }
+
     public Optional<Position> nextAfter(Position current) {
         int i = steps.indexOf(current);
         if (i < 0 || i + 1 >= steps.size()) return Optional.empty();
         return Optional.of(steps.get(i + 1));
     }
-    public int length(){ return steps.size(); }
-    public Position start(){ return steps.get(0); }
-    @Override
-    public String toString() { return steps.toString(); }
+
 
 }

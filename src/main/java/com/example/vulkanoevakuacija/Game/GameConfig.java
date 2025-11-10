@@ -17,13 +17,13 @@ public final class GameConfig {
     public static final char RESIDENT_DEAD = '☠';
 
 
-    public static final int rows = 100, cols = 220,
-            houses = 30, safeZones = 22, randomBarricades = 7000, randomWalls = 1000,
-            lavaSeeds = 2,
+    public static final int rows = 10, cols = 22,
+            houses = 3, safeZones = 1, randomBarricades = 70, randomWalls = 10,
+            lavaSeeds = 1,
 
-            BARRICADE_HP = 100;
+            BARRICADE_HP = 3;
 
-    public static final int gameSpeed = 33;
+    public static final int gameSpeed = 500;
 
 
     public static final String[] DEFAULT_MAP = {

@@ -2,7 +2,9 @@ package com.example.vulkanoevakuacija.Game;
 
 import com.example.vulkanoevakuacija.actions.Command;
 import com.example.vulkanoevakuacija.actions.CommandParser;
+import com.example.vulkanoevakuacija.agent.FastResident;
 import com.example.vulkanoevakuacija.agent.Resident;
+import com.example.vulkanoevakuacija.agent.SlowResident;
 import com.example.vulkanoevakuacija.agent.Updatable;
 import com.example.vulkanoevakuacija.map.GameMap;
 import com.example.vulkanoevakuacija.map.Position;
@@ -44,6 +46,7 @@ public final class GameEngine {
             resolveDeathsOnLava();
             ctx.nextTurn();
         }
+        printState();
         printFinalResult();
 
     }
@@ -125,9 +128,11 @@ public final class GameEngine {
             if (!gameMap.inBounds(pos)) continue;
             if (!resident.isAlive()) {
                 view[pos.getRow()][pos.getCol()] = GameConfig.RESIDENT_DEAD;
-            }  else {
-                view[pos.getRow()][pos.getCol()] = 'R';
+            }  else if (updatable instanceof SlowResident){
+                view[pos.getRow()][pos.getCol()] = GameConfig.RESIDENT_SLOW;
             }
+            else if(updatable instanceof FastResident)view[pos.getRow()][pos.getCol()] = GameConfig.RESIDENT_FAST;
+            if (resident.isEvacuated()) view[pos.getRow()][pos.getCol()] = GameConfig.SAFE;
         }
     }
     System.out.println();

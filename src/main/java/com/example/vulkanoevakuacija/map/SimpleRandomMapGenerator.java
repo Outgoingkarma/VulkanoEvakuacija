@@ -30,11 +30,11 @@ public class SimpleRandomMapGenerator implements MapGenerator {
         final int maxAttempts = 50;
         for (int attempt = 1; attempt <= maxAttempts; attempt++) {
             char[][] map = createBaseMap();
-            placeHouses(map);
-            placeSafeZones(map);
-            placeLavaSeeds(map);
-            placeBarricades(map);
-            placeWalls(map);
+            if (!placeHouses(map)) continue;
+            if (!placeSafeZones(map)) continue;
+            if (!placeLavaSeeds(map)) continue;
+            if (!placeBarricades(map)) continue;
+            if (!placeWalls(map)) continue;
             String[] layout = toStringArray(map);
             if (isPlayable(layout)) {
                 return layout;
@@ -48,66 +48,39 @@ public class SimpleRandomMapGenerator implements MapGenerator {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 boolean border = (row == 0 || row == rows - 1 || col == 0 || col == cols - 1);
-                map[row][col] = border ? '#' : '.';
+                map[row][col] = border ? GameConfig.WALL : GameConfig.ROAD;
             }
         }
         return map;
     }
-    private void placeHouses(char[][] map) {
-        int placed = 0;
-        while (placed < houseCount) {
+
+
+
+private boolean placeRandomFeatures( char[][] map, int desiredCount, char feature) {
+        int placed = 0, attempts = 0, maxAttempts = Math.max(desiredCount * 10, (rows - 2) * (cols - 2));
+        while (placed < desiredCount && attempts < maxAttempts) {
             int row = random.nextInt(rows - 2) + 1;
             int col = random.nextInt(cols - 2) + 1;
-            if (map[row][col] == '.') {
-                map[row][col] = GameConfig.HOUSE;
+            if (map[row][col] == GameConfig.ROAD) {
+                map[row][col] = feature;
                 placed++;
             }
+            attempts++;
         }
-    }
-    private void placeSafeZones(char[][] map) {
-        int placed = 0;
-        while (placed < safeCount) {
-            int row = random.nextInt(rows - 2) + 1;
-            int col = random.nextInt(cols - 2) + 1;
-            if (map[row][col] == '.') {
-                map[row][col] = GameConfig.SAFE;
-            }
-            placed++;
-        }
-    }
-    private void placeLavaSeeds(char[][] map) {
-        int placed = 0;
-        while (placed < lavaSeeds) {
-            int row = random.nextInt(rows - 2) + 1;
-            int col = random.nextInt(cols - 2) + 1;
-            if (map[row][col] == '.') {
-                map[row][col] = GameConfig.LAVA;
-            }
-            placed++;
-        }
-    }
-    private void placeBarricades(char[][] map) {
-        int placed = 0;
-        while (placed < barricadesCount) {
-            int row = random.nextInt(rows - 2) + 1;
-            int col = random.nextInt(cols - 2) + 1;
-            if (map[row][col] == '.') {
-                map[row][col] = GameConfig.BARRICADE;
-            }
-            placed++;
-        }
-    }
-    private void placeWalls(char[][] map) {
-        int placed = 0;
-        while (placed < wallsCount) {
-            int row = random.nextInt(rows - 2) + 1;
-            int col = random.nextInt(cols - 2) + 1;
-            if (map[row][col] == '.') {
-                map[row][col] = GameConfig.WALL;
-            }
-            placed++;
-        }
-    }
+        return placed == desiredCount;
+
+}
+
+
+
+
+
+
+    private boolean placeHouses(char[][] map) { return placeRandomFeatures(map, houseCount, GameConfig.HOUSE); }
+    private boolean placeSafeZones(char[][] map) { return placeRandomFeatures(map, safeCount, GameConfig.SAFE); }
+    private boolean placeLavaSeeds(char[][] map) { return placeRandomFeatures(map, lavaSeeds, GameConfig.LAVA); }
+    private boolean placeBarricades(char[][] map) { return placeRandomFeatures(map, barricadesCount, GameConfig.BARRICADE); }
+    private boolean placeWalls(char[][] map) { return placeRandomFeatures(map, wallsCount, GameConfig.WALL); }
     private String[] toStringArray(char[][] map) {
         String[] result = new String[rows];
         for (int row = 0; row < rows; row++) {

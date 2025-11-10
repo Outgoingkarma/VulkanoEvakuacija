@@ -49,7 +49,7 @@ public class Resident extends Agent{
             this.evacuated = true;
             return true;
         }
-        return false;
+        return true;
     }
 
     public boolean isEvacuated(){ return evacuated; }

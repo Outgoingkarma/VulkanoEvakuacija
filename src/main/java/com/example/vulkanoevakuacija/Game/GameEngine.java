@@ -32,7 +32,7 @@ public final class GameEngine {
             } else {
                 System.out.println("Veiksmai beigesi!!!");
                 System.out.println("Nebegali daugiau statyti/atverti keliu ar barikadu!");
-                System.out.println("Zaidimas tesiasi");
+                System.out.println("Zaidimas tesiasi automatiskai");
                 try {
                     Thread.sleep(GameConfig.gameSpeed);
                 }catch (InterruptedException e){

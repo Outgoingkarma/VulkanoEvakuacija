@@ -1,5 +1,7 @@
 package com.example.vulkanoevakuacija.map;
 
+import com.example.vulkanoevakuacija.Game.GameConfig;
+
 public final class Tile {
     private TileType type;
     private int lavaDelayTurns;
@@ -8,11 +10,11 @@ public final class Tile {
         this.type = type;
         this.lavaDelayTurns = initialLavaDelay(type);
     }
-    private int turn = 1;
+
     private int initialLavaDelay(TileType type){
 
         return switch (type){
-            case BARRICADE -> (3 * turn);
+            case BARRICADE -> (GameConfig.BARRICADE_HP);
             default -> 0;
         };
     }

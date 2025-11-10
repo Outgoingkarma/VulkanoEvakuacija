@@ -68,12 +68,16 @@ public final class GameMap {
     }
     private TileType charToType(char ch){
         return switch (ch) {
-            case '.' -> TileType.ROAD;
-            case 'H' -> TileType.HOUSE;
-            case 'S' -> TileType.SAFE;
-            case 'L' -> TileType.LAVA;
-            case '#' -> TileType.WALL;
-            case 'B' -> TileType.BARRICADE;
+            case GameConfig.ROAD -> TileType.ROAD;
+            case GameConfig.HOUSE -> TileType.HOUSE;
+     //       case 'S' -> TileType.SAFE;
+            case GameConfig.SAFE -> TileType.SAFE;
+            case GameConfig.LAVA -> TileType.LAVA;
+    //        case 'L' -> TileType.LAVA;
+            case GameConfig.WALL -> TileType.WALL;
+    //        case '#' -> TileType.WALL;
+            case GameConfig.BARRICADE -> TileType.BARRICADE;
+    //        case 'B' -> TileType.BARRICADE;
             default -> throw new IllegalArgumentException("Unknown symbol: '" + ch + "'");
         };
     }

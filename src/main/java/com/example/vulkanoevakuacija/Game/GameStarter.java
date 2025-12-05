@@ -1,7 +1,8 @@
 package com.example.vulkanoevakuacija.Game;
 
-import com.example.vulkanoevakuacija.agent.FastResident;
-import com.example.vulkanoevakuacija.agent.SlowResident;
+
+import com.example.vulkanoevakuacija.agent.AlternatingResidentFactory;
+import com.example.vulkanoevakuacija.agent.ResidentFactory;
 import com.example.vulkanoevakuacija.agent.Updatable;
 import com.example.vulkanoevakuacija.map.*;
 import com.example.vulkanoevakuacija.path.BfsPathFinder;
@@ -25,25 +26,24 @@ public class GameStarter {
         //String[] layout = GameConfig.DEFAULT_MAP;
         GameMap gameMap = new GameMap(layout);
         PathFinder pathFinder = new BfsPathFinder();
-        List<Updatable> agents = createResidentsFromHouses(gameMap);
+
+        ResidentFactory residentFactory = new AlternatingResidentFactory();
+        List<Updatable> agents = createResidentsFromHouses(gameMap, residentFactory);
+
         GameContext ctx = new GameContext(gameMap, pathFinder, agents, GameConfig.PLAYER_TOTAL_ACTIONS_COUNT);
         LavaSpread spread = new LavaSpread();
         GameEngine engine = new GameEngine(ctx, spread);
         engine.run();
     }
 
-    private static List<Updatable> createResidentsFromHouses(GameMap gameMap) {
+    private static List<Updatable> createResidentsFromHouses(GameMap gameMap, ResidentFactory residentFactory) {
         List<Updatable> list = new ArrayList<>();
         int idCounter = 1;
         for (int row = 0; row < gameMap.rows(); row++){
             for (int col = 0; col <gameMap.cols(); col++){
                 Position p = new Position(row, col);
                 if (gameMap.getTile(p).getType() == TileType.HOUSE) {
-                    if (idCounter % 2 == 0) {
-                        list.add(new FastResident(idCounter, p));
-                    }else {
-                        list.add(new SlowResident(idCounter, p));
-                    }
+                    list.add(residentFactory.createResident(idCounter, p));
                     idCounter++;
                 }
             }
